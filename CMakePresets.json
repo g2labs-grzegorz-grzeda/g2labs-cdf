@@ -1,0 +1,59 @@
+{
+    "version": 6,
+    "cmakeMinimumRequired": {
+        "major": 3,
+        "minor": 25,
+        "patch": 0
+    },
+    "configurePresets": [
+        {
+            "name": "Test",
+            "displayName": "Test",
+            "description": "Configuration for unit testing",
+            "binaryDir": "${sourceDir}/build",
+            "generator": "Ninja",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "G2LABS_CDF_TESTS_PERFORM": "1"
+            }
+        }
+    ],
+    "buildPresets": [
+        {
+            "name": "Test",
+            "displayName": "Test",
+            "description": "Build for unit testing",
+            "configurePreset": "Test",
+            "cleanFirst": true
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "Test",
+            "displayName": "Test",
+            "description": "Run unit tests",
+            "configurePreset": "Test"
+        }
+    ],
+    "workflowPresets": [
+        {
+            "name": "Test",
+            "displayName": "Test",
+            "description": "Test",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "Test"
+                },
+                {
+                    "type": "build",
+                    "name": "Test"
+                },
+                {
+                    "type": "test",
+                    "name": "Test"
+                }
+            ]
+        }
+    ]
+}
