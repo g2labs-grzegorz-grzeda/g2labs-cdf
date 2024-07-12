@@ -1,0 +1,21 @@
+name: CMake on a single platform
+
+on:
+  push:
+  pull_request:
+
+env:
+  BUILD_TYPE: Debug
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Setup Ninja
+      uses: seanmiddleditch/gha-setup-ninja@v5
+      
+    - name: Run CMake Test preset
+      run: cmake --workflow --preset Test
+
