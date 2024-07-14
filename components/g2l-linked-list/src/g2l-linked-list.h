@@ -89,7 +89,7 @@ g2l_linked_list_iterator_t* g2l_linked_list_iterator_next(g2l_linked_list_iterat
  * @return A pointer to the previous iterator.
  * @return NULL if there are no more iterators.
  */
-g2l_linked_list_iterator_t* linked_list_iterator_prev(g2l_linked_list_iterator_t* iterator);
+g2l_linked_list_iterator_t* g2l_linked_list_iterator_prev(g2l_linked_list_iterator_t* iterator);
 
 /**
  * @brief Get the next element in a linked list.
@@ -97,7 +97,7 @@ g2l_linked_list_iterator_t* linked_list_iterator_prev(g2l_linked_list_iterator_t
  * @return A pointer to the next element.
  * @return NULL if there are no more elements.
  */
-void* linked_list_get(g2l_linked_list_iterator_t* iterator);
+void* g2l_linked_list_get(g2l_linked_list_iterator_t* iterator);
 
 /**
  * @}

@@ -94,14 +94,14 @@ g2l_linked_list_iterator_t* g2l_linked_list_iterator_next(g2l_linked_list_iterat
     return iterator->next;
 }
 
-g2l_linked_list_iterator_t* linked_list_iterator_prev(g2l_linked_list_iterator_t* iterator) {
+g2l_linked_list_iterator_t* g2l_linked_list_iterator_prev(g2l_linked_list_iterator_t* iterator) {
     if (iterator == NULL) {
         return NULL;
     }
     return iterator->prev;
 }
 
-void* linked_list_get(g2l_linked_list_iterator_t* iterator) {
+void* g2l_linked_list_get(g2l_linked_list_iterator_t* iterator) {
     if (iterator == NULL) {
         return NULL;
     }

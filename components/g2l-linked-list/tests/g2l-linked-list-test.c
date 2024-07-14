@@ -22,7 +22,94 @@
  * SOFTWARE.
  */
 #include "g2l-linked-list.h"
+#include <setjmp.h>
+#include <stdarg.h>
+#include <stddef.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "cmocka.h"
+
+static void test_create_linked_list(void** state) {
+    (void)state;  // unused
+    g2l_linked_list_t* list = g2l_linked_list_create();
+    assert_ptr_not_equal(list, NULL);
+    g2l_linked_list_destroy(list);
+}
+
+static void test_list_append(void** state) {
+    (void)state;  // unused
+    g2l_linked_list_t* list = g2l_linked_list_create();
+    int element = 5;
+    g2l_linked_list_append(list, &element);
+    g2l_linked_list_iterator_t* it = g2l_linked_list_iterator_begin(list);
+    assert_ptr_not_equal(it, NULL);
+
+    int* data = g2l_linked_list_get(it);
+    assert_int_equal(*data, element);
+    it = g2l_linked_list_iterator_next(it);
+    assert_ptr_equal(it, NULL);
+
+    g2l_linked_list_destroy(list);
+}
+
+static void test_list_iterate(void** state) {
+    (void)state;  // unused
+    g2l_linked_list_t* list = g2l_linked_list_create();
+    int elements[] = {1, 2, 3, 4, 5};
+    for (size_t i = 0; i < sizeof(elements) / sizeof(elements[0]); i++) {
+        g2l_linked_list_append(list, &elements[i]);
+    }
+
+    g2l_linked_list_iterator_t* it = g2l_linked_list_iterator_begin(list);
+    assert_ptr_not_equal(it, NULL);
+
+    for (size_t i = 0; i < sizeof(elements) / sizeof(elements[0]); i++) {
+        int* data = g2l_linked_list_get(it);
+        assert_int_equal(*data, elements[i]);
+        it = g2l_linked_list_iterator_next(it);
+        if (i == sizeof(elements) / sizeof(elements[0]) - 1) {
+            assert_ptr_equal(it, NULL);
+        } else {
+            assert_ptr_not_equal(it, NULL);
+        }
+    }
+
+    g2l_linked_list_destroy(list);
+}
+
+static void test_list_iterate_reverse(void** state) {
+    (void)state;  // unused
+    g2l_linked_list_t* list = g2l_linked_list_create();
+    int elements[] = {1, 2, 3, 4, 5};
+    for (size_t i = 0; i < sizeof(elements) / sizeof(elements[0]); i++) {
+        g2l_linked_list_append(list, &elements[i]);
+    }
+
+    g2l_linked_list_iterator_t* it = g2l_linked_list_iterator_end(list);
+    assert_ptr_not_equal(it, NULL);
+
+    for (size_t i = sizeof(elements) / sizeof(elements[0]); i > 0; i--) {
+        assert_ptr_not_equal(it, NULL);
+        int* data = g2l_linked_list_get(it);
+        assert_int_equal(*data, elements[i - 1]);
+        it = g2l_linked_list_iterator_prev(it);
+    }
+
+    it = g2l_linked_list_iterator_prev(it);
+    assert_ptr_equal(it, NULL);
+
+    g2l_linked_list_destroy(list);
+}
 
 int main(void) {
-  return 0;
+    const struct CMUnitTest tests[] = {
+        cmocka_unit_test(test_create_linked_list),
+        cmocka_unit_test(test_list_append),
+        cmocka_unit_test(test_list_iterate),
+        cmocka_unit_test(test_list_iterate_reverse),
+    };
+
+    return cmocka_run_group_tests(tests, NULL, NULL);
+    return 0;
 }
