@@ -22,21 +22,19 @@
 #ifndef CLI_H
 #define CLI_H
 
+// TODO: add doxygen comments
+
 typedef void (*cli_print_t)(const char* format, ...);
 
-typedef void (*cli_execute_t)(cli_print_t print, int argc, char** argv);
+typedef struct cli cli_t;
 
-typedef struct cli_entry {
-    cli_execute_t execute;
-    const char* name;
-    const char* help;
-    struct cli_entry* _next;
-} cli_entry_t;
+typedef int (*cli_command_t)(cli_t* cli, int argc, char** argv);
 
-void cli_initialize(cli_print_t cli_print);
+// TODO: add external parametrisation of input and argv buffer sizes
+cli_t* cli_create(cli_print_t cli_print);
 
-void cli_register(cli_entry_t* entry);
+void cli_register(cli_t* cli, const char* name, const char* help, cli_command_t command);
 
-void cli_process(char c);
+void cli_process(cli_t* cli, char c);
 
 #endif  // CLI_H

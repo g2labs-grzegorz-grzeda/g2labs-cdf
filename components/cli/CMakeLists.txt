@@ -27,3 +27,7 @@ add_library(${PROJECT_NAME})
 
 add_subdirectory(src)
 add_subdirectory(tests)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE linked-list
+)
