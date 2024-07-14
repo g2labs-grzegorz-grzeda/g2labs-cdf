@@ -20,6 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(g2l-linked-list)
-add_subdirectory(g2l-event-handler)
-add_subdirectory(g2l-callback)
+target_sources(${PROJECT_NAME}
+    PRIVATE g2l-callback.c
+)
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)

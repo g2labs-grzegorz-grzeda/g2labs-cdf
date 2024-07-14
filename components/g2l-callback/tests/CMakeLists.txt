@@ -20,6 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(g2l-linked-list)
-add_subdirectory(g2l-event-handler)
-add_subdirectory(g2l-callback)
+g2l_cdf_tests_add(g2l-callback-test g2l-callback-test.c g2l-callback)
