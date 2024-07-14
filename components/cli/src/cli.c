@@ -101,7 +101,7 @@ static int parse_arguments(cli_t* cli) {
         if (*ptr == '\0') {
             break;
         }
-        if (cli->parameter_count >= cli->parameter_buffer_size) {
+        if ((size_t)(cli->parameter_count) >= cli->parameter_buffer_size) {
             return CLI_RETURN_ERROR_PARAMETER_COUNT_EXCEEDED;
         }
         cli->parameter_buffer[cli->parameter_count++] = ptr;

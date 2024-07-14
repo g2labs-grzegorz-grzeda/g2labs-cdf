@@ -16,6 +16,12 @@
                 "CMAKE_BUILD_TYPE": "Debug",
                 "G2LABS_CDF_TESTS_PERFORM": "1"
             }
+        },
+        {
+            "name": "Document",
+            "displayName": "Document",
+            "description": "Document code",
+            "binaryDir": "${sourceDir}/build"
         }
     ],
     "buildPresets": [
@@ -25,6 +31,16 @@
             "description": "Build for unit testing",
             "configurePreset": "Test",
             "cleanFirst": true
+        },
+        {
+            "name": "Document",
+            "displayName": "Document",
+            "description": "Build for documentation",
+            "configurePreset": "Document",
+            "cleanFirst": true,
+            "targets": [
+                "g2labs-cdf-describe"
+            ]
         }
     ],
     "testPresets": [
@@ -52,6 +68,21 @@
                 {
                     "type": "test",
                     "name": "Test"
+                }
+            ]
+        },
+        {
+            "name": "Document",
+            "displayName": "Document",
+            "description": "Document",
+            "steps": [
+                {
+                    "type": "configure",
+                    "name": "Document"
+                },
+                {
+                    "type": "build",
+                    "name": "Document"
                 }
             ]
         }
