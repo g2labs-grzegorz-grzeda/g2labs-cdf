@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2024 G2Labs Grzegorz Grzeda
+# Copyright (c) 2023 Grzegorz Grzęda
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -19,8 +19,11 @@
 # LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
-#
-add_subdirectory(linked-list)
-add_subdirectory(event-handler)
-add_subdirectory(callback)
-add_subdirectory(cli)
+project(cli LANGUAGES C VERSION 1.0.0)
+
+enable_testing()
+
+add_library(${PROJECT_NAME})
+
+add_subdirectory(src)
+add_subdirectory(tests)

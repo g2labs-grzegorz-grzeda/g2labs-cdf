@@ -20,7 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(linked-list)
-add_subdirectory(event-handler)
-add_subdirectory(callback)
-add_subdirectory(cli)
+g2l_cdf_tests_add(cli-test cli-test.c cli)

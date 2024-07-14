@@ -1,6 +1,6 @@
 # MIT License
 #
-# Copyright (c) 2024 G2Labs Grzegorz Grzeda
+# Copyright (c) 2023 Grzegorz Grzęda
 #
 # Permission is hereby granted, free of charge, to any person obtaining a copy
 # of this software and associated documentation files (the "Software"), to deal
@@ -20,7 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(linked-list)
-add_subdirectory(event-handler)
-add_subdirectory(callback)
-add_subdirectory(cli)
+target_sources(${PROJECT_NAME}
+    PRIVATE cli.c
+)
+
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
