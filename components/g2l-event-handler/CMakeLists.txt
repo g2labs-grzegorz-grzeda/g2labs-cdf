@@ -20,11 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-project(g2l-linked-list VERSION 0.0.1)
+project(g2l-event-handler LANGUAGES C)
 
 enable_testing()
 
 add_library(${PROJECT_NAME} STATIC)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE g2l-linked-list)
 
 add_subdirectory(src)
 add_subdirectory(tests)

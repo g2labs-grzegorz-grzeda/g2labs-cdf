@@ -21,3 +21,4 @@
 # SOFTWARE.
 #
 add_subdirectory(g2l-linked-list)
+add_subdirectory(g2l-event-handler)
