@@ -22,27 +22,27 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the software.
  */
-#include "g2l-event-handler.h"
+#include "event-handler.h"
 #include <stddef.h>
 #include <stdlib.h>
-#include "g2l-linked-list.h"
+#include "linked-list.h"
 
 typedef struct event_handler_entry {
     uint16_t id;
     void* context;
-    g2l_event_handler_callback_t callback;
-} g2l_event_handler_entry_t;
+    event_handler_callback_t callback;
+} event_handler_entry_t;
 
-typedef struct g2l_event_handler {
-    g2l_linked_list_t* handlers;
-} g2l_event_handler_t;
+typedef struct event_handler {
+    linked_list_t* handlers;
+} event_handler_t;
 
-g2l_event_handler_t* g2l_event_handler_create(void) {
-    g2l_event_handler_t* handler = calloc(1, sizeof(g2l_event_handler_t));
+event_handler_t* event_handler_create(void) {
+    event_handler_t* handler = calloc(1, sizeof(event_handler_t));
     if (!handler) {
         return NULL;
     }
-    handler->handlers = g2l_linked_list_create();
+    handler->handlers = linked_list_create();
     if (!handler->handlers) {
         free(handler);
         return NULL;
@@ -50,40 +50,37 @@ g2l_event_handler_t* g2l_event_handler_create(void) {
     return handler;
 }
 
-void g2l_event_handler_destroy(g2l_event_handler_t* handler) {
+void event_handler_destroy(event_handler_t* handler) {
     if (!handler) {
         return;
     }
-    g2l_linked_list_destroy(handler->handlers);
+    linked_list_destroy(handler->handlers);
     free(handler);
 }
 
-bool g2l_event_handler_register(g2l_event_handler_t* handler,
-                                uint16_t id,
-                                void* context,
-                                g2l_event_handler_callback_t callback) {
+bool event_handler_register(event_handler_t* handler, uint16_t id, void* context, event_handler_callback_t callback) {
     if (!handler || !callback) {
         return false;
     }
-    g2l_event_handler_entry_t* entry = calloc(1, sizeof(g2l_event_handler_entry_t));
+    event_handler_entry_t* entry = calloc(1, sizeof(event_handler_entry_t));
     if (!entry) {
         return false;
     }
     entry->id = id;
     entry->context = context;
     entry->callback = callback;
-    g2l_linked_list_append(handler->handlers, entry);
+    linked_list_append(handler->handlers, entry);
     return true;
 }
 
-bool g2l_event_handler_send(g2l_event_handler_t* handler, uint16_t id, void* payload, size_t size) {
+bool event_handler_send(event_handler_t* handler, uint16_t id, void* payload, size_t size) {
     if (!handler) {
         return false;
     }
     bool was_sent_at_least_to_one_handler = false;
-    for (g2l_linked_list_iterator_t* it = g2l_linked_list_iterator_begin(handler->handlers); it;
-         it = g2l_linked_list_iterator_next(it)) {
-        g2l_event_handler_entry_t* entry = g2l_linked_list_get(it);
+    for (linked_list_iterator_t* it = linked_list_iterator_begin(handler->handlers); it;
+         it = linked_list_iterator_next(it)) {
+        event_handler_entry_t* entry = linked_list_get(it);
         if (entry->id == id) {
             entry->callback(handler, id, entry->context, payload, size);
             was_sent_at_least_to_one_handler = true;

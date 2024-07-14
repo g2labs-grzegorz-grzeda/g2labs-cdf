@@ -20,6 +20,6 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(g2l-linked-list)
-add_subdirectory(g2l-event-handler)
-add_subdirectory(g2l-callback)
+add_subdirectory(linked-list)
+add_subdirectory(event-handler)
+add_subdirectory(callback)

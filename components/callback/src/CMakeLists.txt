@@ -21,7 +21,7 @@
 # SOFTWARE.
 #
 target_sources(${PROJECT_NAME}
-    PRIVATE g2l-callback.c
+    PRIVATE callback.c
 )
 
 target_include_directories(${PROJECT_NAME}

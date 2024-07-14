@@ -20,4 +20,13 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-g2l_cdf_tests_add(g2l-linked-list-test g2l-linked-list-test.c g2l-linked-list)
+project(callback LANGUAGES C)
+
+enable_testing()
+
+add_library(${PROJECT_NAME} STATIC)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE linked-list)
+
+add_subdirectory(src)
+add_subdirectory(tests)

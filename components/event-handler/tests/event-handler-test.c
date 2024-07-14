@@ -22,7 +22,7 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the software.
  */
-#include "g2l-event-handler.h"
+#include "event-handler.h"
 #include <setjmp.h>
 #include <stdarg.h>
 #include <stddef.h>
@@ -33,16 +33,12 @@
 
 static void test_create_event_handler(void** state) {
     (void)state;  // unused
-    g2l_event_handler_t* handler = g2l_event_handler_create();
+    event_handler_t* handler = event_handler_create();
     assert_non_null(handler);
-    g2l_event_handler_destroy(handler);
+    event_handler_destroy(handler);
 }
 
-static void my_handler_function_1(g2l_event_handler_t* handler,
-                                  uint16_t id,
-                                  void* context,
-                                  void* payload,
-                                  size_t size) {
+static void my_handler_function_1(event_handler_t* handler, uint16_t id, void* context, void* payload, size_t size) {
     function_called();
     check_expected(handler);
     check_expected(id);
@@ -51,11 +47,7 @@ static void my_handler_function_1(g2l_event_handler_t* handler,
     check_expected(size);
 }
 
-static void my_handler_function_2(g2l_event_handler_t* handler,
-                                  uint16_t id,
-                                  void* context,
-                                  void* payload,
-                                  size_t size) {
+static void my_handler_function_2(event_handler_t* handler, uint16_t id, void* context, void* payload, size_t size) {
     function_called();
     check_expected(handler);
     check_expected(id);
@@ -66,11 +58,11 @@ static void my_handler_function_2(g2l_event_handler_t* handler,
 
 static void test_register_one_handler(void** state) {
     (void)state;  // unused
-    g2l_event_handler_t* handler = g2l_event_handler_create();
+    event_handler_t* handler = event_handler_create();
     assert_non_null(handler);
 
     char random_context[20];
-    bool result = g2l_event_handler_register(handler, 1, random_context, my_handler_function_1);
+    bool result = event_handler_register(handler, 1, random_context, my_handler_function_1);
     assert_int_equal(result, true);
 
     char random_data[10];
@@ -81,22 +73,22 @@ static void test_register_one_handler(void** state) {
     expect_value(my_handler_function_1, context, random_context);
     expect_value(my_handler_function_1, payload, random_data);
     expect_value(my_handler_function_1, size, sizeof(random_data));
-    g2l_event_handler_send(handler, 1, random_data, sizeof(random_data));
+    event_handler_send(handler, 1, random_data, sizeof(random_data));
 
-    g2l_event_handler_destroy(handler);
+    event_handler_destroy(handler);
 }
 
 static void test_register_one_handler_multiple_contexts(void** state) {
     (void)state;  // unused
-    g2l_event_handler_t* handler = g2l_event_handler_create();
+    event_handler_t* handler = event_handler_create();
     assert_non_null(handler);
 
     char random_context[20];
-    bool result = g2l_event_handler_register(handler, 1, random_context, my_handler_function_1);
+    bool result = event_handler_register(handler, 1, random_context, my_handler_function_1);
     assert_int_equal(result, true);
 
     char random_context2[20];
-    bool result2 = g2l_event_handler_register(handler, 2, random_context2, my_handler_function_1);
+    bool result2 = event_handler_register(handler, 2, random_context2, my_handler_function_1);
     assert_int_equal(result2, true);
 
     char random_data[10];
@@ -107,7 +99,7 @@ static void test_register_one_handler_multiple_contexts(void** state) {
     expect_value(my_handler_function_1, context, random_context);
     expect_value(my_handler_function_1, payload, random_data);
     expect_value(my_handler_function_1, size, sizeof(random_data));
-    g2l_event_handler_send(handler, 1, random_data, sizeof(random_data));
+    event_handler_send(handler, 1, random_data, sizeof(random_data));
 
     expect_function_call(my_handler_function_1);
     expect_value(my_handler_function_1, handler, handler);
@@ -115,22 +107,22 @@ static void test_register_one_handler_multiple_contexts(void** state) {
     expect_value(my_handler_function_1, context, random_context2);
     expect_value(my_handler_function_1, payload, random_data);
     expect_value(my_handler_function_1, size, sizeof(random_data));
-    g2l_event_handler_send(handler, 2, random_data, sizeof(random_data));
+    event_handler_send(handler, 2, random_data, sizeof(random_data));
 
-    g2l_event_handler_destroy(handler);
+    event_handler_destroy(handler);
 }
 
 static void test_register_multiple_handlers(void** state) {
     (void)state;  // unused
-    g2l_event_handler_t* handler = g2l_event_handler_create();
+    event_handler_t* handler = event_handler_create();
     assert_non_null(handler);
 
     char random_context[20];
-    bool result = g2l_event_handler_register(handler, 1, random_context, my_handler_function_1);
+    bool result = event_handler_register(handler, 1, random_context, my_handler_function_1);
     assert_int_equal(result, true);
 
     char random_context2[20];
-    bool result2 = g2l_event_handler_register(handler, 2, random_context2, my_handler_function_2);
+    bool result2 = event_handler_register(handler, 2, random_context2, my_handler_function_2);
     assert_int_equal(result2, true);
 
     char random_data_1[10];
@@ -142,7 +134,7 @@ static void test_register_multiple_handlers(void** state) {
     expect_value(my_handler_function_1, context, random_context);
     expect_value(my_handler_function_1, payload, random_data_1);
     expect_value(my_handler_function_1, size, sizeof(random_data_1));
-    g2l_event_handler_send(handler, 1, random_data_1, sizeof(random_data_1));
+    event_handler_send(handler, 1, random_data_1, sizeof(random_data_1));
 
     expect_function_call(my_handler_function_2);
     expect_value(my_handler_function_2, handler, handler);
@@ -150,9 +142,9 @@ static void test_register_multiple_handlers(void** state) {
     expect_value(my_handler_function_2, context, random_context2);
     expect_value(my_handler_function_2, payload, random_data_2);
     expect_value(my_handler_function_2, size, sizeof(random_data_2));
-    g2l_event_handler_send(handler, 2, random_data_2, sizeof(random_data_2));
+    event_handler_send(handler, 2, random_data_2, sizeof(random_data_2));
 
-    g2l_event_handler_destroy(handler);
+    event_handler_destroy(handler);
 }
 
 int main(void) {

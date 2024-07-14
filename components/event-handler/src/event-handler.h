@@ -22,15 +22,15 @@
  * The above copyright notice and this permission notice shall be included in
  * all copies or substantial portions of the software.
  */
-#ifndef G2L_EVENT_HANDLER_H
-#define G2L_EVENT_HANDLER_H
+#ifndef EVENT_HANDLER_H
+#define EVENT_HANDLER_H
 
 #include <stdbool.h>
 #include <stddef.h>
 #include <stdint.h>
 
 /**
- * @defgroup g2l_event_handler Event Handler
+ * @defgroup event_handler Event Handler
  * @brief Simple and efficient C library for handling events
  * @{
  */
@@ -41,7 +41,7 @@
  * It is used to store the event handler in the list of handlers.
  * @note This structure is not meant to be used directly by the user.
  */
-typedef struct g2l_event_handler g2l_event_handler_t;
+typedef struct event_handler event_handler_t;
 
 /**
  * @brief Event handler callback function type
@@ -53,24 +53,21 @@ typedef struct g2l_event_handler g2l_event_handler_t;
  * @param[in] payload pointer to some payload associated with the event ID
  * @param[in] size size of the payload
  */
-typedef void (*g2l_event_handler_callback_t)(g2l_event_handler_t* handler,
-                                             uint16_t id,
-                                             void* context,
-                                             void* payload,
-                                             size_t size);
+typedef void (
+    *event_handler_callback_t)(event_handler_t* handler, uint16_t id, void* context, void* payload, size_t size);
 
 /**
  * @brief Create a new event handler
  * @return pointer to the newly created event handler
  * @return NULL if the event handler could not be created
  */
-g2l_event_handler_t* g2l_event_handler_create(void);
+event_handler_t* event_handler_create(void);
 
 /**
  * @brief Destroy the event handler
  * @param[in] handler pointer to the event handler to destroy
  */
-void g2l_event_handler_destroy(g2l_event_handler_t* handler);
+void event_handler_destroy(event_handler_t* handler);
 
 /**
  * @brief Register an event handler
@@ -81,10 +78,7 @@ void g2l_event_handler_destroy(g2l_event_handler_t* handler);
  * @return true if registration was successfull
  * @return false if handler was invalid or no more memory to store it
  */
-bool g2l_event_handler_register(g2l_event_handler_t* handler,
-                                uint16_t id,
-                                void* context,
-                                g2l_event_handler_callback_t callback);
+bool event_handler_register(event_handler_t* handler, uint16_t id, void* context, event_handler_callback_t callback);
 
 /**
  * @brief Send event to the handler
@@ -94,10 +88,10 @@ bool g2l_event_handler_register(g2l_event_handler_t* handler,
  * @return true if handler was executed for give event
  * @return false otherwise
  */
-bool g2l_event_handler_send(g2l_event_handler_t* handler, uint16_t id, void* payload, size_t size);
+bool event_handler_send(event_handler_t* handler, uint16_t id, void* payload, size_t size);
 
 /**
  * @}
  */
 
-#endif  // G2L_EVENT_HANDLER_H
+#endif  // EVENT_HANDLER_H

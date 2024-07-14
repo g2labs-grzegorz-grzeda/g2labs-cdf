@@ -20,13 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-project(g2l-event-handler LANGUAGES C)
+target_sources(${PROJECT_NAME}
+    PRIVATE event-handler.c
+)
 
-enable_testing()
-
-add_library(${PROJECT_NAME} STATIC)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE g2l-linked-list)
-
-add_subdirectory(src)
-add_subdirectory(tests)
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)

@@ -21,43 +21,43 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef G2L_LINKED_LIST_H
-#define G2L_LINKED_LIST_H
+#ifndef LINKED_LIST_H
+#define LINKED_LIST_H
 
 #include <stddef.h>
 
 /**
- * @defgroup g2l-linked-list G2L Linked list
+ * @defgroup linked-list Linked list
  *
  * @brief A doubly linked list.
  * @{
  */
 
-typedef struct g2l_linked_list g2l_linked_list_t;
-typedef struct g2l_linked_list_iterator g2l_linked_list_iterator_t;
+typedef struct linked_list linked_list_t;
+typedef struct linked_list_iterator linked_list_iterator_t;
 
 /**
  * @brief Create a new linked list.
  * @return A pointer to the newly created linked list.
  * @return NULL if the linked list could not be created.
- * @note The linked list must be destroyed with g2l_linked_list_destroy() when it is
+ * @note The linked list must be destroyed with linked_list_destroy() when it is
  * no longer needed.
  */
-g2l_linked_list_t* g2l_linked_list_create(void);
+linked_list_t* linked_list_create(void);
 
 /**
  * @brief Destroy a linked list.
  * @param list A pointer to the linked list to destroy.
  * @note This function will free all memory allocated for the linked list.
  */
-void g2l_linked_list_destroy(g2l_linked_list_t* list);
+void linked_list_destroy(linked_list_t* list);
 
 /**
  * @brief Append data to the end of a linked list.
  * @param list A pointer to the linked list.
  * @param data A pointer to the data to append.
  */
-void g2l_linked_list_append(g2l_linked_list_t* list, void* data);
+void linked_list_append(linked_list_t* list, void* data);
 
 /**
  * @brief Get an iterator to the beginning of a linked list.
@@ -65,7 +65,7 @@ void g2l_linked_list_append(g2l_linked_list_t* list, void* data);
  * @return A pointer to the iterator.
  * @return NULL if the iterator could not be created.
  */
-g2l_linked_list_iterator_t* g2l_linked_list_iterator_begin(g2l_linked_list_t* list);
+linked_list_iterator_t* linked_list_iterator_begin(linked_list_t* list);
 
 /**
  * @brief Get an iterator to the end of a linked list.
@@ -73,7 +73,7 @@ g2l_linked_list_iterator_t* g2l_linked_list_iterator_begin(g2l_linked_list_t* li
  * @return A pointer to the iterator.
  * @return NULL if the iterator could not be created.
  */
-g2l_linked_list_iterator_t* g2l_linked_list_iterator_end(g2l_linked_list_t* list);
+linked_list_iterator_t* linked_list_iterator_end(linked_list_t* list);
 
 /**
  * @brief Get next iterator in a linked list.
@@ -81,7 +81,7 @@ g2l_linked_list_iterator_t* g2l_linked_list_iterator_end(g2l_linked_list_t* list
  * @return A pointer to the next iterator.
  * @return NULL if there are no more iterators.
  */
-g2l_linked_list_iterator_t* g2l_linked_list_iterator_next(g2l_linked_list_iterator_t* iterator);
+linked_list_iterator_t* linked_list_iterator_next(linked_list_iterator_t* iterator);
 
 /**
  * @brief Get previous iterator in a linked list.
@@ -89,7 +89,7 @@ g2l_linked_list_iterator_t* g2l_linked_list_iterator_next(g2l_linked_list_iterat
  * @return A pointer to the previous iterator.
  * @return NULL if there are no more iterators.
  */
-g2l_linked_list_iterator_t* g2l_linked_list_iterator_prev(g2l_linked_list_iterator_t* iterator);
+linked_list_iterator_t* linked_list_iterator_prev(linked_list_iterator_t* iterator);
 
 /**
  * @brief Get the next element in a linked list.
@@ -97,10 +97,10 @@ g2l_linked_list_iterator_t* g2l_linked_list_iterator_prev(g2l_linked_list_iterat
  * @return A pointer to the next element.
  * @return NULL if there are no more elements.
  */
-void* g2l_linked_list_get(g2l_linked_list_iterator_t* iterator);
+void* linked_list_get(linked_list_iterator_t* iterator);
 
 /**
  * @}
  */
 
-#endif  // G2L_LINKED_LIST_H
+#endif  // LINKED_LIST_H

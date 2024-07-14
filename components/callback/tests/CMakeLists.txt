@@ -20,10 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-target_sources(${PROJECT_NAME}
-    PRIVATE g2l-linked-list.c
-)
-
-target_include_directories(${PROJECT_NAME}
-    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
-)
+g2l_cdf_tests_add(callback-test callback-test.c callback)

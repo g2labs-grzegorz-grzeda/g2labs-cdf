@@ -20,4 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-g2l_cdf_tests_add(g2l-event-handler-test g2l-event-handler-test.c g2l-event-handler)
+g2l_cdf_tests_add(event-handler-test event-handler-test.c event-handler)

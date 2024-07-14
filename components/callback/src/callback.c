@@ -19,49 +19,49 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include "g2l-callback.h"
+#include "callback.h"
 #include <stddef.h>
 #include <stdlib.h>
-#include "g2l-linked-list.h"
+#include "linked-list.h"
 
-typedef struct callbacks_entry {
-    g2l_callback_handler_t handler;
+typedef struct callback_entry {
+    callback_handler_t handler;
     void* context;
-} g2l_callbacks_entry_t;
+} callback_entry_t;
 
-typedef struct g2l_callback {
-    g2l_linked_list_t* list;
-} g2l_callback_t;
+typedef struct callback {
+    linked_list_t* list;
+} callback_t;
 
-g2l_callback_t* g2l_callback_create(void) {
-    g2l_callback_t* callbacks = calloc(1, sizeof(g2l_callback_t));
+callback_t* callback_create(void) {
+    callback_t* callbacks = calloc(1, sizeof(callback_t));
     if (callbacks) {
-        callbacks->list = g2l_linked_list_create();
+        callbacks->list = linked_list_create();
     }
     return callbacks;
 }
 
-bool g2l_callback_register_handler(g2l_callback_t* callbacks, g2l_callback_handler_t handler, void* context) {
+bool callback_register_handler(callback_t* callbacks, callback_handler_t handler, void* context) {
     if (!callbacks || !handler) {
         return false;
     }
-    g2l_callbacks_entry_t* entry = calloc(1, sizeof(g2l_callbacks_entry_t));
+    callback_entry_t* entry = calloc(1, sizeof(callback_entry_t));
     if (!entry) {
         return false;
     }
     entry->handler = handler;
     entry->context = context;
-    g2l_linked_list_append(callbacks->list, entry);
+    linked_list_append(callbacks->list, entry);
     return true;
 }
 
-void g2l_callback_dispatch(g2l_callback_t* callbacks, void* payload) {
+void callback_dispatch(callback_t* callbacks, void* payload) {
     if (!callbacks) {
         return;
     }
-    for (g2l_linked_list_iterator_t* it = g2l_linked_list_iterator_begin(callbacks->list); it;
-         it = g2l_linked_list_iterator_next(it)) {
-        g2l_callbacks_entry_t* entry = g2l_linked_list_get(it);
+    for (linked_list_iterator_t* it = linked_list_iterator_begin(callbacks->list); it;
+         it = linked_list_iterator_next(it)) {
+        callback_entry_t* entry = linked_list_get(it);
         entry->handler(entry->context, payload);
     }
 }

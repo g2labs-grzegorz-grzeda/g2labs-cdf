@@ -20,11 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-project(g2l-linked-list VERSION 0.0.1)
-
-enable_testing()
-
-add_library(${PROJECT_NAME} STATIC)
-
-add_subdirectory(src)
-add_subdirectory(tests)
+g2l_cdf_tests_add(linked-list-test linked-list-test.c linked-list)
