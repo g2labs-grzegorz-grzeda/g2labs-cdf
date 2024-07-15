@@ -25,8 +25,8 @@
 #include <stddef.h>
 
 /**
- * @defgroup event_handler Event Handler
- * @brief Simple and efficient C library for handling events
+ * @defgroup cli Command Line Interface
+ * @brief Simple and efficient C library for handling CLI
  * @{
  */
 #define CLI_DEFAULT_MAX_INPUT_BUFFER_SIZE 200 /**< Default maximum size of input buffer */
