@@ -18,27 +18,27 @@ jobs:
       
     - name: Run CMake Test preset
       run: cmake --workflow --preset Test
-  # document:
-  #   runs-on: ubuntu-latest
-  #   steps:
-  #   - uses: actions/checkout@v4
+  document:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v4
 
-  #   - name: Configure Doxygen
-  #     run: cmake . -Bbuild/
+    - name: Configure Doxygen
+      run: cmake . -Bbuild/
 
-  #   - name: Doxygen Action
-  #     uses: mattnotmitt/doxygen-action@v1.1.0
-  #     with:
-  #         doxyfile-path: ./build/documentation/Doxyfile
-  #         working-directory: .
+    - name: Doxygen Action
+      uses: mattnotmitt/doxygen-action@v1.1.0
+      with:
+          doxyfile-path: ./build/documentation/Doxyfile
+          working-directory: .
 
-  #   - name: GH Pages Deployment
-  #     uses: peaceiris/actions-gh-pages@v3
-  #     with:
-  #       github_token: ${{ secrets.GITHUB_TOKEN }}
-  #       publish_dir: ${{ github.workspace }}/build/documentation/html/
-  #       enable_jekyll: false
-  #       allow_empty_commit: false
-  #       force_orphan: true
-  #       publish_branch: gh-pages
+    - name: GH Pages Deployment
+      uses: peaceiris/actions-gh-pages@v3
+      with:
+        github_token: ${{ secrets.GITHUB_TOKEN }}
+        publish_dir: ${{ github.workspace }}/build/documentation/html/
+        enable_jekyll: false
+        allow_empty_commit: false
+        force_orphan: true
+        publish_branch: gh-pages
 
