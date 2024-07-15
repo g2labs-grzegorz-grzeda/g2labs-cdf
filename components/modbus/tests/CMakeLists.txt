@@ -20,8 +20,4 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(cli)
-add_subdirectory(modbus)
-add_subdirectory(callback)
-add_subdirectory(linked-list)
-add_subdirectory(event-handler)
+g2l_cdf_tests_add(modbus-test modbus-test.c modbus)

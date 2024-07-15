@@ -20,8 +20,15 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(cli)
-add_subdirectory(modbus)
-add_subdirectory(callback)
-add_subdirectory(linked-list)
-add_subdirectory(event-handler)
+project(modbus VERSION 0.0.1)
+
+enable_testing()
+
+add_library(${PROJECT_NAME} STATIC)
+
+add_subdirectory(src)
+add_subdirectory(tests)
+
+target_link_libraries(${PROJECT_NAME}
+    PRIVATE linked-list
+)

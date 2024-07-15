@@ -20,8 +20,10 @@
 # OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 # SOFTWARE.
 #
-add_subdirectory(cli)
-add_subdirectory(modbus)
-add_subdirectory(callback)
-add_subdirectory(linked-list)
-add_subdirectory(event-handler)
+target_include_directories(${PROJECT_NAME}
+    PUBLIC ${CMAKE_CURRENT_SOURCE_DIR}
+)
+
+target_sources(${PROJECT_NAME}
+    PRIVATE modbus.c
+)
